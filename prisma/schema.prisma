@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Portal {
+  IDEALISTA
+  IMOVIRTUAL
+  CASASAPO
+  REMAX
+  ERA
+  SUPERCASA
+  OUTRO
+}
+
+enum PropertyCondition {
+  NOVO
+  USADO
+  RECUPERADO
+  PARA_RECOMPOR
+}
+
+model Property {
+  id                 String            @id @default(uuid())
+  externalId         String
+  sourceUrl          String
+  portal             Portal
+  title              String
+  description        String            @default("")
+  price              Float
+  previousPrice      Float?
+  typology           String?
+  usefulArea         Float?
+  grossArea          Float?
+  pricePerM2         Float?
+  bathrooms          Int?
+  condition          PropertyCondition @default(USADO)
+  energyCertificate  String?
+  distrito           String
+  concelho           String
+  freguesia          String?
+  address            String?
+  latitude           Float?
+  longitude          Float?
+  images             Json
+  isPromoted         Boolean           @default(false)
+  scrapedAt          DateTime          @default(now())
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  evaluation         DealEvaluation?
+
+  @@unique([portal, externalId])
+  @@index([distrito, concelho, freguesia])
+  @@index([price, typology])
+  @@index([pricePerM2])
+  @@index([scrapedAt])
+}
+
+model MarketStats {
+  id               String   @id @default(uuid())
+  locationKey      String   @unique
+  avgPricePerM2    Float
+  minPricePerM2    Float
+  maxPricePerM2    Float
+  totalProperties  Int
+  lastCalculatedAt DateTime @updatedAt
+}
+
+model DealEvaluation {
+  id                    String   @id @default(uuid())
+  propertyId            String   @unique
+  property              Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  dealScore             Float
+  priceDeviationPercent Float
+  estimatedRentalYield  Float?
+  notes                 Json
+  updatedAt             DateTime @updatedAt
+
+  @@index([dealScore])
+}

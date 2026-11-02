@@ -1,0 +1,51 @@
+{
+  "name": "casa-clara",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "mcp": "tsx mcp-server/index.ts",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@prisma/client": "^6.19.0",
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.6.1",
+    "lucide-react": "^0.468.0",
+    "next": "15.5.9",
+    "playwright": "^1.55.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "recharts": "^2.15.4",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/node": "^22.15.30",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.7",
+    "prisma": "^6.19.0",
+    "tailwindcss": "^4.1.11",
+    "tailwind-merge": "^3.3.1",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "allowScripts": {
+    "@prisma/client@6.19.3": true,
+    "@prisma/engines@6.19.3": true,
+    "esbuild@0.28.2": true,
+    "prisma@6.19.3": true,
+    "sharp@0.34.5": true
+  }
+}
